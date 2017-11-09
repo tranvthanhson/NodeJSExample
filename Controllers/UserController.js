@@ -57,7 +57,22 @@ exports.delete = function (req, res, next) {
             res.json(APIResponse.fail(404, "Not found user"));
         }
     });
+}
 
+exports.update = function (req, res, next) {
+    // console.log('UPDATING');
+    var user_id = parseInt(req.params.id);
+    var user = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+    };
+    UserModel.update(user, {
+        where: {
+            user_id: user_id
+        }
+    }).then(
+        res.json(APIResponse.success(user_id))
+    );
 }
 
 module.exports = exports;
