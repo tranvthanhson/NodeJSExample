@@ -1,4 +1,5 @@
 var ClotherModel = require('../Models/Clother');
+var UserModel = require('../Models/User');
 var APIResponse = require('../Helpers/APIResponse');
 
 var exports = {};
@@ -23,9 +24,17 @@ exports.create = function (req, res, next) {
         color: req.body.color,
         user_id: parseInt(req.body.id)
     }
-    ClotherModel.create(clother).then(
-        res.json(APIResponse.success(clother))
-    );
+
+    UserModel.findById(clother.user_id).then(user => {
+        if(user){
+            ClotherModel.create(clother).then(
+                res.json(APIResponse.success(clother))
+            );
+        }
+        else {
+            res.json(APIResponse.fail(404, 'Not have user, cannot create the row'))
+        }
+    });
 }
 
 exports.delete = function (req, res, next) {
