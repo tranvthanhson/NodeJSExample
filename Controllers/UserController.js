@@ -1,21 +1,20 @@
-var userModel = require('../Models/users.js');
+var User = require('../Models/User');
+var APIResponse = require('../Helpers/APIResponse');
 
-var userController = {
-  all: function(req, res, next) {
-    res.json(req.params);
-  },
-  show: function (req, res, next) {
-    res.json(req.params);
-  },
-  insert: function(name, size, color, user_id, callback) {
-    return userModel.insert(name, size, color, user_id, callback);
-  },
-  deleteById: function(id, callback) {
-    return userModel.deleteById(id, callback);
-  },
-  deleteAll: function(callback) {
-    return userModel.deleteAll(callback);
-  }
+var exports = {};
+
+exports.all = function (req, res, next) {
+    User.findAll().then(users => res.json(
+        APIResponse.success(users)
+    ));
 };
 
-module.exports = userController;
+exports.findById = function (req, res, next) {
+    var id = parseInt(req.params.id);
+    User.findById(id).then(user => res.json(
+        APIResponse.success(user)
+    ));
+}
+
+module.exports = exports;
+
