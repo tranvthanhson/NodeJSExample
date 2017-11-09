@@ -20,7 +20,7 @@ exports.findById = function (req, res, next) {
             if (clother) {
                 res.json(APIResponse.success(clother))
             } else {
-                res.status(404).json(APIResponse.fail(404, 'Not found clother'))
+                res.json(APIResponse.fail(404, 'Not found clother'))
             }
             return clother;
         })
