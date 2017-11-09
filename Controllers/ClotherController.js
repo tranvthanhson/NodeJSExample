@@ -12,9 +12,17 @@ exports.all = function (req, res, next) {
 
 exports.findById = function (req, res, next) {
     var clother_id = parseInt(req.params.id);
-    ClotherModel.findById(clother_id).then(clother => res.json(
-        APIResponse.success(clother)
-    ));
+    ClotherModel.findById(clother_id).then(clother => {
+        if(clother) {
+            res.json(
+                APIResponse.success(clother)
+            )
+        } else {
+            res.json(
+                APIResponse.fail(404, 'Not found clother')
+            )
+        }
+    });
 }
 
 exports.create = function (req, res, next) {

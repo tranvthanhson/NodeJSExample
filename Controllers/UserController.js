@@ -12,9 +12,18 @@ exports.all = function (req, res, next) {
 
 exports.findById = function (req, res, next) {
     var user_id = parseInt(req.params.id);
-    UserModel.findById(user_id).then(user => res.json(
-        APIResponse.success(user, user.length)
-    ));
+    UserModel.findById(user_id).then(user => {
+        if(user){
+            res.json(
+                APIResponse.success(user, user.length)
+            )
+        }
+        else {
+            res.json(
+                APIResponse.fail(404, 'Not found user')
+            )
+        }
+    });
 }
 
 exports.create = function (req, res, next) {
