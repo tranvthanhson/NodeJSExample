@@ -25,8 +25,6 @@ module.exports = User;
 
 // var table = 'users';
 
-// // Sua lai dung sequelize
-
 // var users = {
 //   all:function(callback) {
 //     // return db.query("SELECT * FROM `" + table + "`", callback);

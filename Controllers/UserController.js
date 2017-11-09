@@ -1,17 +1,17 @@
-var User = require('../Models/User');
+var UserModel = require('../Models/User');
 var APIResponse = require('../Helpers/APIResponse');
 
 var exports = {};
 
 exports.all = function (req, res, next) {
-    User.findAll().then(users => res.json(
+    UserModel.findAll().then(users => res.json(
         APIResponse.success(users)
     ));
 };
 
 exports.findById = function (req, res, next) {
-    var id = parseInt(req.params.id);
-    User.findById(id).then(user => res.json(
+    var user_id = parseInt(req.params.id);
+    UserModel.findById(user_id).then(user => res.json(
         APIResponse.success(user)
     ));
 }
@@ -21,8 +21,19 @@ exports.create = function (req, res, next) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
     }
-    User.create(user).then(
+    UserModel.create(user).then(
        res.json(APIResponse.success(user))
+    );
+}
+
+exports.delete = function (req, res, next) {
+    var user_id = parseInt(req.body.id);
+    UserModel.destroy({
+        where: {
+          user_id: user_id
+        }
+    }).then(
+       res.json(APIResponse.success(user_id))
     );
 }
 

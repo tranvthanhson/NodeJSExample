@@ -1,4 +1,5 @@
-var clotherModel = require('../Models/clothers.js');
+var ClotherModel = require('../Models/Clother');
+var APIResponse = require('../Helpers/APIResponse');
 
 var exports = {};
 
