@@ -58,4 +58,37 @@ exports.delete = function (req, res, next) {
     );
 }
 
+exports.update = function (req, res, next) {
+    var clother_id = parseInt(req.params.id);
+    ClotherModel.findById(clother_id).then(clother => {
+        if(clother){
+            // console.log(req.body.user_id);
+            // return;
+            var clother = {
+                name: req.body.name,
+                size: req.body.size,
+                color: req.body.color,
+                user_id: parseInt(req.body.user_id)
+            };
+            UserModel.findById(clother.user_id).then(user => {
+                if(user){
+                    ClotherModel.update(clother, {
+                        where: {
+                            user_id: clother.user_id
+                        }
+                    }).then(
+                        res.json(APIResponse.success(clother))
+                    );
+                } else {
+                    res.json(APIResponse.fail(404, 'Not have user to add clother'))
+                }
+            });
+        } else {
+            res.json(APIResponse.fail(404, 'Not found clother'))
+        }
+    });
+
+
+}
+
 module.exports = exports;

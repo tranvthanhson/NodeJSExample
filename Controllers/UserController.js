@@ -60,7 +60,6 @@ exports.delete = function (req, res, next) {
 }
 
 exports.update = function (req, res, next) {
-    // console.log('UPDATING');
     var user_id = parseInt(req.params.id);
     var user = {
         firstName: req.body.firstName,
