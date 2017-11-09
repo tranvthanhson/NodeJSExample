@@ -12,17 +12,19 @@ exports.all = function (req, res, next) {
 
 exports.findById = function (req, res, next) {
     var clother_id = parseInt(req.params.id);
-    ClotherModel.findById(clother_id).then(clother => {
-        if(clother) {
-            res.json(
-                APIResponse.success(clother)
-            )
-        } else {
-            res.json(
-                APIResponse.fail(404, 'Not found clother')
-            )
-        }
-    });
+    ClotherModel.findById(clother_id)
+        .then(clother => {
+            console.log(clother);
+        })
+        .then(clother => {
+            if (clother) {
+                res.json(APIResponse.success(clother))
+            } else {
+                res.status(404).json(APIResponse.fail(404, 'Not found clother'))
+            }
+            return clother;
+        })
+    //
 }
 
 exports.create = function (req, res, next) {
@@ -46,7 +48,7 @@ exports.create = function (req, res, next) {
 }
 
 exports.delete = function (req, res, next) {
-    var clother_id = parseInt(req.body.id);
+    var clother_id = parseInt(req.params.id);
     ClotherModel.destroy({
         where: {
           clother_id: clother_id

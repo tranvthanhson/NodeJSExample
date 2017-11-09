@@ -37,9 +37,9 @@ exports.create = function (req, res, next) {
 }
 
 exports.delete = function (req, res, next) {
-    var user_id = parseInt(req.body.id);
+    var user_id = parseInt(req.params.id);
     UserModel.findById(user_id).then(user => {
-        if(user) {
+        if (user) {
             ClotherModel.destroy({
                 where: {
                     user_id: user_id
@@ -53,8 +53,7 @@ exports.delete = function (req, res, next) {
                     res.json(APIResponse.success(user_id))
                 )
             );
-        }
-        else {
+        } else {
             res.json(APIResponse.fail(404, "Not found user"));
         }
     });
