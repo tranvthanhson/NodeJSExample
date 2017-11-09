@@ -1,8 +1,9 @@
 var exports  = {};
 
-exports.success = function (data){
+exports.success = function (data, length){
     return {
         status: 'success',
+        length: length,
         data: data,
         success: {
             code: 200

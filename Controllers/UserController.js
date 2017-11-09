@@ -5,14 +5,14 @@ var exports = {};
 
 exports.all = function (req, res, next) {
     UserModel.findAll().then(users => res.json(
-        APIResponse.success(users)
+        APIResponse.success(users, users.length)
     ));
 };
 
 exports.findById = function (req, res, next) {
     var user_id = parseInt(req.params.id);
     UserModel.findById(user_id).then(user => res.json(
-        APIResponse.success(user)
+        APIResponse.success(user, user.length)
     ));
 }
 
@@ -22,7 +22,7 @@ exports.create = function (req, res, next) {
         lastName: req.body.lastName,
     }
     UserModel.create(user).then(
-       res.json(APIResponse.success(user))
+       res.json(APIResponse.success(user, user.length))
     );
 }
 
