@@ -9,37 +9,24 @@ app.use(bodyParser());
 const connection = require('../config/connection');
 const User = require('../Models/User');
 
-// app.get('/test', function (req, res) {
-//     User.findAll().then(function (users) {
-//         res.json(users);
+app.use('/users', require('../Router/users'));
+
+
+// app.get('/users', function (req, res) {
+//     userController.all(function (error, results) {
+//         if (error) {
+//             res.json({
+//                 status: 'fail'
+//             });
+//         }
+//         else {
+//             res.json({
+//                 status: 'success',
+//                 data: results
+//             });
+//         }
 //     });
 // });
-
-// app.post('/test', function (req, res) {
-//     var credential = req.body;
-//     User.create(credential)
-//         .then(function (user) {
-//             res.json(user);
-//         });
-// });
-
-// app.use('/users', require('../Routers/users'));
-
-app.get('/users', function (req, res) {
-    userController.all(function (error, results) {
-        if (error) {
-            res.json({
-                status: 'fail'
-            });
-        }
-        else {
-            res.json({
-                status: 'success',
-                data: results
-            });
-        }
-    });
-});
 
 
 app.post('/user/insert', function (req, res) {
