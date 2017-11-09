@@ -11,7 +11,7 @@ exports.success = function (data, length){
     };
 }
 
-exports.fail = function (data, code, message) {
+exports.fail = function (code, message) {
     return {
         status: 'fail',
         error: {

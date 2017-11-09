@@ -1,4 +1,5 @@
 var UserModel = require('../Models/User');
+var ClotherModel = require('../Models/Clother');
 var APIResponse = require('../Helpers/APIResponse');
 
 var exports = {};
@@ -28,13 +29,27 @@ exports.create = function (req, res, next) {
 
 exports.delete = function (req, res, next) {
     var user_id = parseInt(req.body.id);
-    UserModel.destroy({
-        where: {
-          user_id: user_id
+    UserModel.findById(user_id).then(user => {
+        if(user) {
+            ClotherModel.destroy({
+                where: {
+                    user_id: user_id
+                }
+            }).then(
+                UserModel.destroy({
+                    where: {
+                      user_id: user_id
+                    }
+                }).then(
+                    res.json(APIResponse.success(user_id))
+                )
+            );
         }
-    }).then(
-       res.json(APIResponse.success(user_id))
-    );
+        else {
+            res.json(APIResponse.fail(404, "Not found user"));
+        }
+    });
+
 }
 
 module.exports = exports;
